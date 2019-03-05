@@ -1,10 +1,10 @@
 import Counter from '../components/Counter';
 import * as actions from '../actions';
 import { connect } from 'react-redux';
-import { State } from '../reducers';
 
 import { Dispatch } from 'redux';
-import { CounterAction } from '../reducers';
+import { TRootState } from '../reducers';
+import { TRootAction } from '../actions'
 
 // 13가지 색상 중 랜덤으로 선택하는 함수입니다.
 export function getRandomColor(): string {
@@ -31,16 +31,17 @@ export function getRandomColor(): string {
   return colors[random];
 }
 
+
 // store 안의 state 값을 props로 연결합니다.
-const mapStateToProps = (state: State) => ({
-  color: state.color,
-  number: state.number
+const mapStateToProps = (state: TRootState) => ({
+  color: state.colorData.color,
+  number: state.numberData.number
 })
 
 /* 액션 생성 함수를 사용하여 액션을 생성하고,
    해당 액션을 dispatch하는 함수를 만든 후 이를 props로 연결합니다.
 */
-const mapDispatchToProps = (dispatch: Dispatch<CounterAction>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<TRootAction>) => ({
   onIncrement: () => dispatch(actions.increment()),
   onDecrement: () => dispatch(actions.decrement()),
   onSetColor: () => {

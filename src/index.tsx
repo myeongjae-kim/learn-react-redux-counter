@@ -6,7 +6,11 @@ import * as serviceWorker from './serviceWorker';
 
 // 리덕스 관련 불러오기
 import { createStore } from 'redux';
+<<<<<<< HEAD
 import reducers from './reducers/number';
+=======
+import reducers from './reducers';
+>>>>>>> single-reducer-counter
 import { Provider } from 'react-redux';
 
 const store = createStore(reducers);

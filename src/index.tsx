@@ -5,11 +5,12 @@ import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 
 // 리덕스 관련 불러오기
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers';
 import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-const store = createStore(reducers);
+const store = createStore(reducers, composeWithDevTools());
 
 ReactDOM.render(
   <Provider store={store}>

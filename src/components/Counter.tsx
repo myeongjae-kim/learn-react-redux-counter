@@ -9,7 +9,7 @@ export interface ICounterProps {
   onSetColor: () => void
 };
 
-const Counter: React.SFC<ICounterProps> & { defaultProps: Partial<ICounterProps> } =
+const Counter: React.SFC<ICounterProps> /*& { defaultProps: Partial<ICounterProps> }*/ =
   ({ number, color, onIncrement, onDecrement, onSetColor }) => {
     return (
       <div

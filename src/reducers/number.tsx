@@ -1,5 +1,6 @@
-import * as actionTypes from '../actions/ActionTypes';
+import * as actions from '../actions';
 import { TRootActions } from '../actions';
+import { getType } from 'typesafe-actions';
 
 interface INumberState {
   readonly number: number
@@ -18,11 +19,11 @@ const initialState: INumberState = {
 
 function counter(state: INumberState = initialState, action: TRootActions): INumberState {
   switch (action.type) {
-    case actionTypes.INCREMENT:
+    case getType(actions.increment):
       return {
         number: state.number + 1
       };
-    case actionTypes.DECREMENT:
+    case getType(actions.decrement):
       return {
         number: state.number - 1
       };

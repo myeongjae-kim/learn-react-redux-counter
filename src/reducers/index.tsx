@@ -1,5 +1,6 @@
+import * as actions from '../actions';
 import { TRootActions } from '../actions';
-import * as actionTypes from '../actions/ActionTypes';
+import { getType } from 'typesafe-actions';
 
 export type TCounterState = Readonly<{
   color: string,
@@ -26,7 +27,7 @@ function counter(state: TRootState = initialState, action: TRootActions): TRootS
   const { counters } = state;
 
   switch (action.type) {
-    case actionTypes.CREATE:
+    case getType(actions.create):
       return {
         counters: [
           ...counters,
@@ -36,13 +37,11 @@ function counter(state: TRootState = initialState, action: TRootActions): TRootS
           }
         ]
       };
-    case actionTypes.REMOVE:
+    case getType(actions.remove):
       return {
         counters: counters.slice(0, counters.length - 1)
       };
-    default:
-      return state;
-    case actionTypes.INCREMENT:
+    case getType(actions.increment):
       return {
         counters: [
           ...counters.slice(0, action.payload.index), // 선택한 인덱스의 전 아이템들
@@ -53,7 +52,7 @@ function counter(state: TRootState = initialState, action: TRootActions): TRootS
           ...counters.slice(action.payload.index + 1, counters.length) // 선택한 인덱스의 다음 아이템들
         ]
       };
-    case actionTypes.DECREMENT:
+    case getType(actions.decrement):
       return {
         counters: [
           ...counters.slice(0, action.payload.index), // 선택한 인덱스의 전 아이템들
@@ -64,7 +63,7 @@ function counter(state: TRootState = initialState, action: TRootActions): TRootS
           ...counters.slice(action.payload.index + 1, counters.length) // 선택한 인덱스의 다음 아이템들
         ]
       };
-    case actionTypes.SET_COLOR:
+    case getType(actions.setColor):
       return {
         counters: [
           ...counters.slice(0, action.payload.index), // 선택한 인덱스의 전 아이템들
@@ -75,6 +74,8 @@ function counter(state: TRootState = initialState, action: TRootActions): TRootS
           ...counters.slice(action.payload.index + 1, counters.length) // 선택한 인덱스의 다음 아이템들
         ]
       };
+    default:
+      return state;
   }
 }
 

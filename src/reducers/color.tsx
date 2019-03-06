@@ -1,5 +1,7 @@
-import * as actionTypes from '../actions/ActionTypes';
+import * as actions from '../actions'
+
 import { TRootActions } from '../actions';
+import { getType } from 'typesafe-actions';
 
 interface IColorState {
   readonly color: string
@@ -18,7 +20,7 @@ const initialState: IColorState = {
 
 function counter(state: IColorState = initialState, action: TRootActions): IColorState {
   switch (action.type) {
-    case actionTypes.SET_COLOR:
+    case getType(actions.setColor):
       return {
         color: action.payload.color
       }

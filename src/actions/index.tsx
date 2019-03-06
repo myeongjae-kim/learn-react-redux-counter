@@ -16,11 +16,10 @@ export const increment = (index: number) => action(types.INCREMENT, { index });
 export const decrement = (index: number) => action(types.DECREMENT, { index });
 
 // 다른 액션 생성자들과 달리 파라미터를 갖고 있습니다.
-export interface TSetColorArgument {
+export const setColor = (arg0: {
   readonly index: number,
   readonly color: string
-};
-export const setColor = (arg0: TSetColorArgument) => action(
+}) => action(
   types.SET_COLOR,
   arg0
 )

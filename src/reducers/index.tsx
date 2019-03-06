@@ -1,18 +1,15 @@
 import { TRootActions } from '../actions';
-import * as actions from '../actions';
 import * as actionTypes from '../actions/ActionTypes';
-import { ActionType, StateType } from 'typesafe-actions';
-import { Action } from 'redux';
 
 export type TCounterState = Readonly<{
   color: string,
   number: number
 }>
 
-export type TCountersState = Readonly<Array<TCounterState>>
+export type TCounterListState = Readonly<Array<TCounterState>>
 
 export type TRootState = Readonly<{
-  counters: TCountersState
+  counters: TCounterListState
 }>
 
 const initialState: TRootState = {

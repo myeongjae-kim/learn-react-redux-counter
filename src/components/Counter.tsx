@@ -4,22 +4,23 @@ import './Counter.css'
 export interface ICounterProps {
   number: number
   color: string
-  onIncrement: () => void
-  onDecrement: () => void
-  onSetColor: () => void
+  index: number
+  onIncrement: (index: number) => void
+  onDecrement: (index: number) => void
+  onSetColor: (index: number) => void
 };
 
-const Counter: React.SFC<ICounterProps> /*& { defaultProps: Partial<ICounterProps> }*/ =
-  ({ number, color, onIncrement, onDecrement, onSetColor }) => {
+const Counter: React.SFC<ICounterProps> =
+  ({ number, color, index, onIncrement, onDecrement, onSetColor }: ICounterProps) => {
     return (
       <div
         className="Counter"
-        onClick={onIncrement}
+        onClick={() => onIncrement(index)}
         onContextMenu={(e) => {
           e.preventDefault();
-          onDecrement();
+          onDecrement(index);
         }}
-        onDoubleClick={onSetColor}
+        onDoubleClick={() => onSetColor(index)}
         style={{ backgroundColor: color }}
       >
         {number}
@@ -27,11 +28,12 @@ const Counter: React.SFC<ICounterProps> /*& { defaultProps: Partial<ICounterProp
   };
 
 Counter.defaultProps = {
+  index: 0,
   number: 0,
   color: 'black',
-  onIncrement: () => console.warn('onIncrement not defined'),
-  onDecrement: () => console.warn('onDecrement not defined'),
-  onSetColor: () => console.warn('onSetColor not defined')
+  onIncrement: (index: number) => console.warn('onIncrement not defined'),
+  onDecrement: (index: number) => console.warn('onDecrement not defined'),
+  onSetColor: (index: number) => console.warn('onSetColor not defined')
 };
 
 export default Counter;

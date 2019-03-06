@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { Dispatch } from 'redux';
 import { TRootState } from '../reducers';
-import { TRootAction } from '../actions'
+import { TRootActions } from '../actions'
 
 // 13가지 색상 중 랜덤으로 선택하는 함수입니다.
 export function getRandomColor(): string {
@@ -41,7 +41,7 @@ const mapStateToProps = (state: TRootState) => ({
 /* 액션 생성 함수를 사용하여 액션을 생성하고,
    해당 액션을 dispatch하는 함수를 만든 후 이를 props로 연결합니다.
 */
-const mapDispatchToProps = (dispatch: Dispatch<TRootAction>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<TRootActions>) => ({
   onIncrement: () => dispatch(actions.increment()),
   onDecrement: () => dispatch(actions.decrement()),
   onSetColor: () => {

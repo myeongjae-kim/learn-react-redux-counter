@@ -5,12 +5,26 @@
 import * as types from './ActionTypes';
 import { action, ActionType } from 'typesafe-actions';
 
-export const increment = () => action(types.INCREMENT);
-export const decrement = () => action(types.DECREMENT);
+export const create = (color: string) => action(
+  types.CREATE,
+  { color }
+);
+
+export const remove = () => action(types.REMOVE)
+
+export const increment = (index: number) => action(types.INCREMENT, { index });
+export const decrement = (index: number) => action(types.DECREMENT, { index });
 
 // 다른 액션 생성자들과 달리 파라미터를 갖고 있습니다.
-export const setColor = (color: string) => action(types.SET_COLOR, color);
+export interface TSetColorArgument {
+  readonly index: number,
+  readonly color: string
+};
+export const setColor = (arg0: TSetColorArgument) => action(
+  types.SET_COLOR,
+  arg0
+)
 
 // for generating type type of actions
 import * as thisActions from '.';
-export type TRootAction = ActionType<typeof thisActions>;
+export type TRootActions = ActionType<typeof thisActions>;

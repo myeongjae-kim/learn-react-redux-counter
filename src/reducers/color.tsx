@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/ActionTypes';
-import { TRootAction } from '../actions';
+import { TRootActions } from '../actions';
 
 export type TColorState = Readonly<{
   color: string
@@ -17,7 +17,7 @@ const initialState: TColorState = {
 */
 
 
-function counter(state = initialState, action: TRootAction) {
+function counter(state = initialState, action: TRootActions) {
   switch (action.type) {
     case actionTypes.SET_COLOR:
       return {

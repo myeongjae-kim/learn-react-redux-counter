@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/ActionTypes';
-import { TRootAction } from '../actions';
+import { TRootActions } from '../actions';
 
 export type TNumberState = Readonly<{
   number: number
@@ -16,7 +16,7 @@ const initialState: TNumberState = {
    기존 상태 값에 원하는 값을 덮어쓴 새로운 객체를 만들어서 반환해야 합니다.
 */
 
-function counter(state = initialState, action: TRootAction) {
+function counter(state = initialState, action: TRootActions) {
   switch (action.type) {
     case actionTypes.INCREMENT:
       return {

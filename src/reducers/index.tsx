@@ -1,60 +1,84 @@
+import { TRootActions } from '../actions';
 import * as actions from '../actions';
+import * as actionTypes from '../actions/ActionTypes';
 import { ActionType, StateType } from 'typesafe-actions';
+import { Action } from 'redux';
 
-import number from './number';
-import color from './color'
-import { combineReducers } from 'redux';
+export type TCounterState = Readonly<{
+  color: string,
+  number: number
+}>
 
-/* 서브 리듀서들을 하나로 합칩니다.
-   combineReducers를 실행하고 나면, 나중에 store 형태를
-   파라미터로 전달한 객체 모양대로 만듭니다.
-   지금은 다음과 같이 만듭니다.
-   {
-     numberData: {
-       number: 0
-     },
-     colorData: {
-       color: 'black'
-     }
-   }
-*/
+export type TCountersState = Readonly<Array<TCounterState>>
 
-const reducers = combineReducers({
-  numberData: number,
-  colorData: color,
-});
+export type TRootState = Readonly<{
+  counters: TCountersState
+}>
 
-/* 리듀서 함수를 정의합니다. 리듀서는 state와 action을 파라미터로 받습니다.
-   state가 undefined일 때(스토어가 생성될 때) state 기본 값을 initialState로 사용합니다.
-   action.type에 따라 다른 작업을 하고, 새 상태를 만들어서 반환합니다.
-   기존 상태 값에 원하는 값을 덮어쓴 새로운 객체를 만들어서 반환해야 합니다.
-*/
+const initialState: TRootState = {
+  counters: [
+    {
+      color: 'black',
+      number: 0
+    }
+  ]
+}
 
-/*
-export type CounterAction = ActionType<typeof actions>;
+function counter(state: TRootState = initialState, action: TRootActions): TRootState {
+  // 레퍼런스 생성
+  const { counters } = state;
 
-function counter(state = initialState, action: CounterAction) {
   switch (action.type) {
+    case actionTypes.CREATE:
+      return {
+        counters: [
+          ...counters,
+          {
+            color: action.payload.color,
+            number: 0
+          }
+        ]
+      };
+    case actionTypes.REMOVE:
+      return {
+        counters: counters.slice(0, counters.length - 1)
+      };
+    default:
+      return state;
     case actionTypes.INCREMENT:
       return {
-        ...state,
-        number: state.number + 1
+        counters: [
+          ...counters.slice(0, action.payload.index), // 선택한 인덱스의 전 아이템들
+          {
+            ...counters[action.payload.index], // 기존 객체에
+            number: counters[action.payload.index].number + 1 // 새 number 값 덮어쓰기
+          },
+          ...counters.slice(action.payload.index + 1, counters.length) // 선택한 인덱스의 다음 아이템들
+        ]
       };
     case actionTypes.DECREMENT:
       return {
-        ...state,
-        number: state.number - 1
+        counters: [
+          ...counters.slice(0, action.payload.index), // 선택한 인덱스의 전 아이템들
+          {
+            ...counters[action.payload.index], // 기존 객체에
+            number: counters[action.payload.index].number - 1 // 새 number 값 덮어쓰기
+          },
+          ...counters.slice(action.payload.index + 1, counters.length) // 선택한 인덱스의 다음 아이템들
+        ]
       };
     case actionTypes.SET_COLOR:
       return {
-        ...state,
-        color: action.payload
-      }
-    default:
-      return state;
+        counters: [
+          ...counters.slice(0, action.payload.index), // 선택한 인덱스의 전 아이템들
+          {
+            ...counters[action.payload.index], // 기존 객체에
+            color: action.payload.color // 새 color 값 덮어쓰기
+          },
+          ...counters.slice(action.payload.index + 1, counters.length) // 선택한 인덱스의 다음 아이템들
+        ]
+      };
   }
-};
+}
 
-*/
-export default reducers;
-export type TRootState = StateType<typeof reducers>;
+export default counter;

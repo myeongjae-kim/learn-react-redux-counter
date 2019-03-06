@@ -1,12 +1,12 @@
 import * as actionTypes from '../actions/ActionTypes';
 import { TRootActions } from '../actions';
 
-export type TColorState = Readonly<{
-  color: string
-}>
+interface IColorState {
+  readonly color: string
+}
 
 // 초기 상태를 정의합니다.
-const initialState: TColorState = {
+const initialState: IColorState = {
   color: 'black'
 }
 
@@ -16,12 +16,11 @@ const initialState: TColorState = {
    기존 상태 값에 원하는 값을 덮어쓴 새로운 객체를 만들어서 반환해야 합니다.
 */
 
-
-function counter(state = initialState, action: TRootActions) {
+function counter(state: IColorState = initialState, action: TRootActions): IColorState {
   switch (action.type) {
     case actionTypes.SET_COLOR:
       return {
-        color: action.payload
+        color: action.payload.color
       }
     default:
       return state;

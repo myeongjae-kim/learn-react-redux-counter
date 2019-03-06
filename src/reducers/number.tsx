@@ -1,12 +1,12 @@
 import * as actionTypes from '../actions/ActionTypes';
 import { TRootActions } from '../actions';
 
-export type TNumberState = Readonly<{
-  number: number
-}>
+interface INumberState {
+  readonly number: number
+}
 
 // 초기 상태를 정의합니다.
-const initialState: TNumberState = {
+const initialState: INumberState = {
   number: 0,
 }
 
@@ -16,7 +16,7 @@ const initialState: TNumberState = {
    기존 상태 값에 원하는 값을 덮어쓴 새로운 객체를 만들어서 반환해야 합니다.
 */
 
-function counter(state = initialState, action: TRootActions) {
+function counter(state: INumberState = initialState, action: TRootActions): INumberState {
   switch (action.type) {
     case actionTypes.INCREMENT:
       return {

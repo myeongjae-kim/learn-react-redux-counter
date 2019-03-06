@@ -1,18 +1,15 @@
 import { TRootActions } from '../actions';
-import * as actions from '../actions';
 import * as actionTypes from '../actions/ActionTypes';
-import { ActionType, StateType } from 'typesafe-actions';
-import { Action } from 'redux';
 
 export type TCounterState = Readonly<{
   color: string,
   number: number
 }>
 
-export type TCountersState = Readonly<Array<TCounterState>>
+export type TCounterListState = Readonly<Array<TCounterState>>
 
 export type TRootState = Readonly<{
-  counters: TCountersState
+  counters: TCounterListState
 }>
 
 const initialState: TRootState = {
@@ -43,8 +40,6 @@ function counter(state: TRootState = initialState, action: TRootActions): TRootS
       return {
         counters: counters.slice(0, counters.length - 1)
       };
-    default:
-      return state;
     case actionTypes.INCREMENT:
       return {
         counters: [
@@ -78,6 +73,8 @@ function counter(state: TRootState = initialState, action: TRootActions): TRootS
           ...counters.slice(action.payload.index + 1, counters.length) // 선택한 인덱스의 다음 아이템들
         ]
       };
+    default:
+      return state;
   }
 }
 
